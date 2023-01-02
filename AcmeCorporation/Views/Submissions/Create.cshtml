@@ -1,0 +1,59 @@
+﻿@model AcmeCorporation.Models.Submission
+
+@{
+    ViewData["Title"] = "Enter draw";
+}
+
+
+<div class="text-center">
+    <h1 class="display-4">Welcome to the draw</h1>
+    <h4>Fan of Wile E. Coyote? Do you want to squash the Road Runner as much as him? Well look no further!
+        You now have a once in a lifetime opportunity to win a one of a kind anvil, signed by none other than Wile E. Coyote himself! So what are you waiting for? Enter the draw before your neighbore!</h4>
+</div>
+
+
+<div class="text-center">
+<h1>Enter Draw</h1>
+
+<h4>Input your information here</h4>
+<hr />
+
+
+
+<div class="row-center" align="center">
+    <div class="col-md-4">
+        <form asp-action="Create">
+            <div asp-validation-summary="ModelOnly" class="text-danger"></div>
+            <div class="form-group">
+                <label asp-for="FirstName" class="control-label"></label>
+                <input asp-for="FirstName" class="form-control" />
+                <span asp-validation-for="FirstName" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="LastName" class="control-label"></label>
+                <input asp-for="LastName" class="form-control" />
+                <span asp-validation-for="LastName" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="EmailAddress" class="control-label"></label>
+                <input asp-for="EmailAddress" class="form-control" />
+                <span asp-validation-for="EmailAddress" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="SerialNumber" class="control-label"></label>
+                <input asp-for="SerialNumber" class="form-control" />
+                <span asp-validation-for="SerialNumber" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <input type="submit" value="Submit" class="enter-button" />
+            </div>
+        </form>
+    </div>
+</div>
+
+</div>
+
+
+@section Scripts {
+    @{await Html.RenderPartialAsync("_ValidationScriptsPartial");}
+}
