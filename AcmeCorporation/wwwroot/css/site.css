@@ -31,16 +31,37 @@ body {
 
 .enter-button {
     padding: 10px 25px;
-    background-color: #3544b1;
+    background-color: rgb(255,0,0);
+    border: 0;
+    border-bottom: 2px solid black;
+    border-right: 2px solid black;
     font-weight: 700;
-    color: white;
+    color: black;
     text-decoration: none;
     margin-top: 1rem;
     display: inline-block;
-    transition: opacity 0.3s ease;
+    transition: background-color 0.3s ease;
+    text-transform: uppercase;
+
 }
 
-.enter-button:hover{
-    color: white;
-    opacity: 0.8;
+    .enter-button:hover {
+        color: black;
+        background-color: rgba(255,0,0,0.8);
+    }
+
+hr{
+    margin: 2rem 0;
+}
+
+.logo {
+    height: 75px;
+}
+
+h1 {
+    font-size: 30px;
+}
+
+.text-danger {
+    width: 100%;
 }

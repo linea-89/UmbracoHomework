@@ -28,23 +28,6 @@ namespace AcmeCorporation.Controllers
                         Problem("Entity set 'AcmeCorporationContext.Submission'  is null.");
         }
 
-        // GET: Submissions/Details/5
-        public async Task<IActionResult> Details(int? id)
-        {
-            if (id == null || _context.Submission == null)
-            {
-                return NotFound();
-            }
-
-            var submission = await _context.Submission
-                .FirstOrDefaultAsync(m => m.Id == id);
-            if (submission == null)
-            {
-                return NotFound();
-            }
-
-            return View(submission);
-        }
 
         // GET: Submissions/Create
         public IActionResult Create()
@@ -55,25 +38,45 @@ namespace AcmeCorporation.Controllers
         // POST: Submissions/Create
         // To protect from overposting attacks, enable the specific properties you want to bind to.
         // For more details, see http://go.microsoft.com/fwlink/?LinkId=317598.
-     
+
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Create([Bind("Id,FirstName,LastName,EmailAddress,SerialNumber")] Submission submission)
+        public async Task<IActionResult> Create([Bind("Id,FirstName,LastName,EmailAddress,SerialNumber,Birthdate")] Submission submission)
         {
+            //Computing age
+            var today = DateTime.Today;
+            var birthDate = submission.Birthdate;
+            var age = today.Year - birthDate.Year;
+
+            if(birthDate.Month > today.Month || birthDate.Month == today.Month && birthDate.Date > today.Date)
+            {
+                age--;
+            } 
+
+            if(age < 18)
+            {
+                ModelState.AddModelError("Birthdate", "You must be 18 to enter");
+                return View(submission);
+            }
+
+            
+
+
+            // Check if serial exists
             var result = _context.SerialNumber.Where(x => x.ProductSerialNumber == submission.SerialNumber);
             var serialNumber = result.FirstOrDefault();
 
             if (serialNumber == null)
             {
+                ModelState.AddModelError("SerialNumber", "It seems this serial number does not exist");
                 return View(submission);
-            } 
+            }
 
             var numberOfTimesUsed = _context.Submission.Where(x => x.SerialNumber == submission.SerialNumber).Count();
 
-            if(numberOfTimesUsed > 1)
+            if (numberOfTimesUsed > 1)
             {
                 ModelState.AddModelError("SerialNumber", "It seems you already used this number twice");
-                submission.SerialNumber = Guid.Empty;           
                 return View(submission);
 
             }
@@ -87,97 +90,5 @@ namespace AcmeCorporation.Controllers
             return View(submission);
         }
 
-        // GET: Submissions/Edit/5
-        public async Task<IActionResult> Edit(int? id)
-        {
-            if (id == null || _context.Submission == null)
-            {
-                return NotFound();
-            }
-
-            var submission = await _context.Submission.FindAsync(id);
-            if (submission == null)
-            {
-                return NotFound();
-            }
-            return View(submission);
-        }
-
-        // POST: Submissions/Edit/5
-        // To protect from overposting attacks, enable the specific properties you want to bind to.
-        // For more details, see http://go.microsoft.com/fwlink/?LinkId=317598.
-        [HttpPost]
-        [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Edit(int id, [Bind("Id,FirstName,LastName,EmailAdress,SerialNumber")] Submission submission)
-        {
-            if (id != submission.Id)
-            {
-                return NotFound();
-            }
-
-            if (ModelState.IsValid)
-            {
-                try
-                {
-                    _context.Update(submission);
-                    await _context.SaveChangesAsync();
-                }
-                catch (DbUpdateConcurrencyException)
-                {
-                    if (!SubmissionExists(submission.Id))
-                    {
-                        return NotFound();
-                    }
-                    else
-                    {
-                        throw;
-                    }
-                }
-                return RedirectToAction(nameof(Index));
-            }
-            return View(submission);
-        }
-
-        // GET: Submissions/Delete/5
-        public async Task<IActionResult> Delete(int? id)
-        {
-            if (id == null || _context.Submission == null)
-            {
-                return NotFound();
-            }
-
-            var submission = await _context.Submission
-                .FirstOrDefaultAsync(m => m.Id == id);
-            if (submission == null)
-            {
-                return NotFound();
-            }
-
-            return View(submission);
-        }
-
-        // POST: Submissions/Delete/5
-        [HttpPost, ActionName("Delete")]
-        [ValidateAntiForgeryToken]
-        public async Task<IActionResult> DeleteConfirmed(int id)
-        {
-            if (_context.Submission == null)
-            {
-                return Problem("Entity set 'AcmeCorporationContext.Submission'  is null.");
-            }
-            var submission = await _context.Submission.FindAsync(id);
-            if (submission != null)
-            {
-                _context.Submission.Remove(submission);
-            }
-
-            await _context.SaveChangesAsync();
-            return RedirectToAction(nameof(Index));
-        }
-
-        private bool SubmissionExists(int id)
-        {
-            return (_context.Submission?.Any(e => e.Id == id)).GetValueOrDefault();
-        }
     }
 }

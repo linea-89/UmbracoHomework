@@ -10,7 +10,7 @@ namespace AcmeCorporationNewDatabase
 {
     public class AcmeCorporationContext : DbContext
     {
-        public AcmeCorporationContext (DbContextOptions<AcmeCorporationContext> options)
+        public AcmeCorporationContext(DbContextOptions<AcmeCorporationContext> options)
             : base(options)
         {
         }
@@ -19,22 +19,7 @@ namespace AcmeCorporationNewDatabase
 
         public DbSet<AcmeCorporation.Models.SerialNumber> SerialNumber { get; set; } = default!;
 
-       
-       
-       /* protected override void OnModelCreating(ModelBuilder modelBuilder) {
-
-            modelBuilder.Entity<Submission>()
-                .HasOne(s => s.SerialNumber)
-                .WithMany(n => n.Submissions)
-                .HasForeignKey(s => s.SerialNumberProductSerialNumber)
-                .HasPrincipalKey(n => n.ProductSerialNumber)
-                .IsRequired();
-        } */
-        
-
-
-
     }
 }
 
-    
+
