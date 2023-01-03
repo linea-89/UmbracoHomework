@@ -1,13 +1,7 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Threading.Tasks;
-using Microsoft.AspNetCore.Mvc;
-using Microsoft.AspNetCore.Mvc.Rendering;
+﻿using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
-using AcmeCorporationNewDatabase;
+using AcmeCorporation.Data;
 using AcmeCorporation.Models;
-using Microsoft.AspNetCore.Authorization;
 
 namespace AcmeCorporation.Controllers
 {
@@ -61,7 +55,6 @@ namespace AcmeCorporation.Controllers
 
             
 
-
             // Check if serial exists
             var result = _context.SerialNumber.Where(x => x.ProductSerialNumber == submission.SerialNumber);
             var serialNumber = result.FirstOrDefault();
@@ -85,9 +78,14 @@ namespace AcmeCorporation.Controllers
             {
                 _context.Add(submission);
                 await _context.SaveChangesAsync();
-                return RedirectToAction(nameof(Index));
+                return RedirectToAction(nameof(Confirmation));
             }
             return View(submission);
+        }
+
+        public IActionResult Confirmation()
+        {
+            return View();
         }
 
     }

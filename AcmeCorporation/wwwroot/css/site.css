@@ -65,3 +65,9 @@ h1 {
 .text-danger {
     width: 100%;
 }
+
+.image {
+    height: 200px;
+    margin-top: 5rem;
+    transform: rotate(-2deg)
+}

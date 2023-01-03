@@ -1,12 +1,6 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Threading.Tasks;
-using Microsoft.EntityFrameworkCore;
-using AcmeCorporation.Models;
-using Microsoft.AspNetCore.Mvc;
+﻿using Microsoft.EntityFrameworkCore;
 
-namespace AcmeCorporationNewDatabase
+namespace AcmeCorporation.Data
 {
     public class AcmeCorporationContext : DbContext
     {
