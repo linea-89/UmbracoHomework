@@ -13,7 +13,7 @@ namespace AcmeCorporation.Data
 
         public DbSet<AcmeCorporation.Models.SerialNumber> SerialNumber { get; set; } = default!;
 
-    }
+       }
 }
 
 
