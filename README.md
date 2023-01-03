@@ -11,7 +11,7 @@ Once you have the solution up and running do the following:
 - Update the database by writing `Update-Database` in PMC.
 - Build the solution by pressing `Ctrl`+`Shift`+`B`
 - To run the application, simply press `Ctrl`+`F5` (to run without debugging).
-- Once the application is running, the "Program.cs" will check if there are currently anything in the SerialNumber table, if not, it will generate 100 Guids. 
+- Once the application is running, the "Program.cs" will check if there is currently anything in the SerialNumber table, if not, it will generate 100 Guids. 
 - Go to "SQL Server Object Explorer" in Visual Studio, by pressing `Ctrl`+`½`,`Ctrl`+`S` or "View" -> "SQL Server Object Explorer".
 - Open "SQL Server" -> "Database" -> "AcmeCorporation.Data" -> "Tables".
 - Right click on "dbo.SerialNumber" and press "View Data".
